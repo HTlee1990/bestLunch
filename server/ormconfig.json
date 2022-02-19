@@ -1,0 +1,26 @@
+[
+    {
+        "name": "default",
+        "type": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "username": "root",
+        "password": "!dlgudxo90",
+        "database": "lunch",
+        "entities": [
+            "dist/**/*.entity{ .ts,.js}"
+        ],
+        "synchronize": true,
+        "migrations": [
+            "dist/migrations/*{.ts,.js}"
+        ],
+        "migrationsTableName": "migrations_history",
+        "migrationsRun": true,
+        "ssl": true,
+        "extra": {
+            "ssl": {
+                "rejectUnauthorized": false
+            }
+        }
+    }
+]
