@@ -17,9 +17,7 @@
   </div>
 </template>
 
-<script>
-export default {}
-</script>
+<script></script>
 
 <style>
 .nav__wrapper {
@@ -41,7 +39,7 @@ export default {}
   display: flex;
   flex-direction: column;
   color: white;
-  /* font-size: 10px; */
+  font-size: 1rem;
   gap: 10px 0;
 }
 </style>

@@ -37,22 +37,4 @@ a {
   #nav a.router-link-exact-active {
     color: #ee5100;
   }
-  button {
-    margin-top: 1rem;
-    width: 15%;
-    padding: 10px 20px;
-    border: none;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 1rem;
-    transition: all 0.3s ease-in-out;
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: "Kirang Haerang", cursive;
-  }
-  button:hover {
-    cursor: pointer;
-    background-color: rgba(0, 173, 255, 0.9);
-    color: white;
-    transform: translateY(-7px);
-  }
 }

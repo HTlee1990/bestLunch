@@ -4,8 +4,9 @@
       <span> Today Lunch??? </span>
     </p>
     <p class="today__menu">{{ menu }}</p>
+    <custom-button>show alert</custom-button>
     <div>
-      <button @click="openFilter">자세히 설정</button>
+      <custom-button @click.native="openFilter">자세히 설정</custom-button>
     </div>
     <MenuFilter v-bind:filterForm="filterForm" v-if="filterOpened" />
     <div>
@@ -19,11 +20,12 @@
 // @ is an alias to /src
 import axios from "axios"
 import MenuFilter from "@/components/MenuFilter.vue"
+import CustomButton from "@/components/CustomButton.vue"
 import "./Home.scss"
 
 export default {
   name: "Home",
-  components: { MenuFilter },
+  components: { MenuFilter, CustomButton },
 
   data() {
     return {
@@ -57,6 +59,7 @@ export default {
     },
 
     openFilter() {
+      console.log("clicked!!!")
       this.filterOpened = !this.filterOpened
     },
   },

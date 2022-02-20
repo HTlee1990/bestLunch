@@ -12,7 +12,9 @@ import { User } from './entities/mcUser.entity';
     MenusModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'host.docker.internal',
+      //docker 용 host
+      // host: 'host.docker.internal',
+      host: 'localhost',
       port: 3306,
       username: 'root',
       password: '!dlgudxo90',
