@@ -8,7 +8,7 @@
 export default {}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 button {
   background: #1aab8a;
   color: #fff;
@@ -19,6 +19,7 @@ button {
   cursor: pointer;
   transition: 800ms ease all;
   outline: none;
+  margin: 1rem 0;
 }
 
 button:hover {

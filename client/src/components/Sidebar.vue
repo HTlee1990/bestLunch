@@ -38,7 +38,7 @@
 .nav__item {
   display: flex;
   flex-direction: column;
-  color: white;
+  color: black;
   font-size: 1rem;
   gap: 10px 0;
 }

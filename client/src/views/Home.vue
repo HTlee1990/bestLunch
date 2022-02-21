@@ -1,18 +1,49 @@
 <template>
   <div class="home">
-    <p class="header__wrapper">
+    <div class="header__wrapper">
       <span> Today Lunch??? </span>
-    </p>
-    <p class="today__menu">{{ menu }}</p>
-    <custom-button>show alert</custom-button>
+    </div>
+    <div class="today__menu">
+      <p>{{ menu }}</p>
+    </div>
     <div>
       <custom-button @click.native="openFilter">자세히 설정</custom-button>
     </div>
     <MenuFilter v-bind:filterForm="filterForm" v-if="filterOpened" />
     <div>
-      <button class="menuBtn" v-if="menu" @click="decidePlace">결정!</button>
+      <custom-button
+        class="menuBtn"
+        v-if="menu !== `오늘 점심은 뭐먹지?`"
+        @click.native="decidePlace"
+        >결정!</custom-button
+      >
     </div>
-    <button class="menuBtn" @click="getMenu">점심메뉴 정하기</button>
+    <custom-button class="menuBtn" @click.native="getMenu"
+      >점심메뉴 정하기</custom-button
+    >
+    <div class="testBox">
+      <button
+        class="box__item"
+        :class="{ clicked: isActive.btn1 }"
+        @click="clickBtn(1)"
+      >
+        중식
+      </button>
+      <button
+        class="box__item"
+        :class="{ clicked: isActive.btn2 }"
+        @click="clickBtn(2)"
+      >
+        한식
+      </button>
+      <button
+        class="box__item"
+        :class="{ clicked: isActive.btn3 }"
+        @click="clickBtn(3)"
+      >
+        일식
+      </button>
+    </div>
   </div>
 </template>
 
@@ -29,7 +60,8 @@ export default {
 
   data() {
     return {
-      menu: "",
+      menu: "오늘 점심은 뭐먹지?",
+      isActive: { btn1: false, btn2: false, btn3: false },
       filterOpened: false,
       dummyMenu: [],
       clicked: false,
@@ -62,6 +94,10 @@ export default {
       console.log("clicked!!!")
       this.filterOpened = !this.filterOpened
     },
+
+    clickBtn(num) {
+      this.isActive[`btn${num}`] = !this.isActive[`btn${num}`]
+    },
   },
   computed: {},
   async mounted() {},
@@ -70,11 +106,15 @@ export default {
 
 <style scoped>
 .home {
-  /* height: 100vh; */
+  height: 100%;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.today__menu {
+  margin: 2rem 0;
+  color: black;
 }
 
 .menuBtn:hover .today__menu {
