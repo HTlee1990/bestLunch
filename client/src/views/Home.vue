@@ -21,29 +21,6 @@
     <custom-button class="menuBtn" @click.native="getMenu"
       >점심메뉴 정하기</custom-button
     >
-    <div class="testBox">
-      <button
-        class="box__item"
-        :class="{ clicked: isActive.btn1 }"
-        @click="clickBtn(1)"
-      >
-        중식
-      </button>
-      <button
-        class="box__item"
-        :class="{ clicked: isActive.btn2 }"
-        @click="clickBtn(2)"
-      >
-        한식
-      </button>
-      <button
-        class="box__item"
-        :class="{ clicked: isActive.btn3 }"
-        @click="clickBtn(3)"
-      >
-        일식
-      </button>
-    </div>
   </div>
 </template>
 
@@ -61,7 +38,6 @@ export default {
   data() {
     return {
       menu: "오늘 점심은 뭐먹지?",
-      isActive: { btn1: false, btn2: false, btn3: false },
       filterOpened: false,
       dummyMenu: [],
       clicked: false,
@@ -93,10 +69,6 @@ export default {
     openFilter() {
       console.log("clicked!!!")
       this.filterOpened = !this.filterOpened
-    },
-
-    clickBtn(num) {
-      this.isActive[`btn${num}`] = !this.isActive[`btn${num}`]
     },
   },
   computed: {},
