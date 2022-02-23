@@ -40,14 +40,6 @@
   }
 }
 
-body {
-  font: 1.5em "Neuton";
-  // background: #090d00;
-  // color: rgba(255, 255, 255, 0.25);
-  // text-align: center;
-  // margin: 0;
-}
-
 .header__wrapper {
   text-transform: uppercase;
   letter-spacing: 0.5em;
@@ -59,7 +51,8 @@ body {
   // position: absolute;
 
   span {
-    font: 700 1em "Oswald", "sans-serif";
+    font-size: 1.5em;
+    font-weight: 600;
     letter-spacing: 0;
     padding: 0.25em 0 0.325em;
     display: block;
