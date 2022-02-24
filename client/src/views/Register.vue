@@ -38,14 +38,16 @@
         </select>
       </div>
       <div>
-        <button type="submit">추가</button>
+        <CustomButton type="submit">추가</CustomButton>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import CustomButton from "@/components/CustomButton.vue"
 export default {
+  components: { CustomButton },
   data() {
     return {
       menuForm: {

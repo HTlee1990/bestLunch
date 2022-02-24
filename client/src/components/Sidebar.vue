@@ -19,7 +19,7 @@
 
 <script></script>
 
-<style>
+<style lang="scss" scoped>
 .nav__wrapper {
   position: fixed;
   bottom: 1rem;
@@ -41,5 +41,8 @@
   font-size: 1rem;
   text-align: center;
   gap: 10px 0;
+  &:hover {
+    color: #1aab8a;
+  }
 }
 </style>
