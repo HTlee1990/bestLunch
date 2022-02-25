@@ -1,6 +1,8 @@
 <template>
   <div class="about">
-    <h3>메뉴 추가하기</h3>
+    <div class="header">
+      <h3>메뉴 추가하기</h3>
+    </div>
 
     <form class="form__container" @submit.prevent="submitform">
       <div class="input__container">
@@ -37,7 +39,7 @@
           <option>하</option>
         </select>
       </div>
-      <div>
+      <div class="registerBtn">
         <CustomButton type="submit">추가</CustomButton>
       </div>
     </form>
@@ -72,31 +74,11 @@ export default {
 }
 </script>
 
-<style scoped>
-input {
-  text-align: center;
-  height: 1.5rem;
-  font-family: "Kirang Haerang", cursive;
-  width: 10%;
-  font-size: 1.5rem;
-  border: none;
-  box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.35);
+<style lang="scss" scoped>
+.header {
+  margin: 1rem;
 }
-input:focus {
-  outline: none;
-}
-select {
-  /* -webkit-appearance: none; 네이티브 외형 감추기 */
-  width: 100px;
-  text-align: center;
-  font-family: "Kirang Haerang", cursive;
-  font-size: 1.5rem;
-  height: 2rem;
-}
-/* IE 10, 11의 네이티브 화살표 숨기기 */
-select::-ms-expand {
-  display: none;
-}
+
 .about {
   display: flex;
   flex-direction: column;
@@ -105,20 +87,48 @@ select::-ms-expand {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
-}
+  gap: 1rem;
 
-.input__container {
-  margin: 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .input__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 2rem;
+    .title {
+      margin-right: 0.5rem;
+    }
 
-.title {
-  margin-right: 0.5rem;
-}
-select {
-  padding: 3px 6px;
+    input {
+      /* position: absolute;
+      right: 0; */
+      width: 50%;
+      text-align: center;
+      height: 1.5rem;
+      font-family: "Kirang Haerang", cursive;
+      font-size: 1.5rem;
+      border: none;
+      box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.35);
+    }
+    input:focus {
+      outline: none;
+    }
+
+    select {
+      /* -webkit-appearance: none; 네이티브 외형 감추기 */
+      width: 50%;
+      text-align: center;
+      font-family: "Kirang Haerang", cursive;
+      /* font-size: 1.5rem; */
+      height: 2rem;
+      padding: 3px 6px;
+    }
+    select::-ms-expand {
+      display: none;
+    }
+  }
+  .registerBtn {
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
