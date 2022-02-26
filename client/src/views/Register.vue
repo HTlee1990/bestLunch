@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div class="header">
-      <h3>메뉴 추가하기</h3>
+      <h3>맛집 등록하기</h3>
     </div>
 
     <form class="form__container" @submit.prevent="submitform">
@@ -40,7 +40,7 @@
         </select>
       </div>
       <div class="registerBtn">
-        <CustomButton type="submit">추가</CustomButton>
+        <CustomButton type="submit">내 맛집 등록하기</CustomButton>
       </div>
     </form>
   </div>
@@ -75,8 +75,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/style/common";
+
 .header {
-  margin: 1rem;
+  @include header;
 }
 
 .about {
@@ -114,13 +116,14 @@ export default {
     }
 
     select {
-      /* -webkit-appearance: none; 네이티브 외형 감추기 */
+      /* 네이티브 외형 감추기
+      -webkit-appearance: none; */
+      /* font-family: "Kirang Haerang", cursive; */
       width: 50%;
       text-align: center;
-      font-family: "Kirang Haerang", cursive;
-      /* font-size: 1.5rem; */
       height: 2rem;
       padding: 3px 6px;
+      border: none;
     }
     select::-ms-expand {
       display: none;
@@ -129,6 +132,7 @@ export default {
   .registerBtn {
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
   }
 }
 </style>

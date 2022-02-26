@@ -1,26 +1,32 @@
 <template>
   <div class="home">
-    <div class="header__wrapper">
-      <span> Today Lunch??? </span>
+    <div class="header">
+      <h3>YL</h3>
     </div>
-    <div class="today__menu">
-      <p>{{ menu }}</p>
+
+    <div class="home__wrapper" v-show="!isFirstClick">
+      <button class="randomPlace" @click.prevent="getFirstPlace">Click!</button>
     </div>
-    <div>
-      <custom-button @click.native="openFilter">자세히 설정</custom-button>
-    </div>
-    <MenuFilter v-bind:filterForm="filterForm" v-if="filterOpened" />
-    <div>
-      <custom-button
-        class="menuBtn"
-        v-if="menu !== `오늘 점심은 뭐먹지?`"
-        @click.native="decidePlace"
-        >결정!</custom-button
+    <div class="home__wrapper" v-if="isFirstClick">
+      <div>
+        <p>{{ menu }}</p>
+      </div>
+      <div>
+        <custom-button @click.native="openFilter">자세히 설정</custom-button>
+      </div>
+      <MenuFilter v-bind:filterForm="filterForm" v-if="filterOpened" />
+      <div>
+        <custom-button
+          class="menuBtn"
+          v-if="menu !== `오늘 점심은 뭐먹지?`"
+          @click.native="decidePlace"
+          >결정!</custom-button
+        >
+      </div>
+      <custom-button class="menuBtn" @click.native="getMenu"
+        >점심메뉴 정하기</custom-button
       >
     </div>
-    <custom-button class="menuBtn" @click.native="getMenu"
-      >점심메뉴 정하기</custom-button
-    >
   </div>
 </template>
 
@@ -39,8 +45,8 @@ export default {
     return {
       menu: "오늘 점심은 뭐먹지?",
       filterOpened: false,
+      isFirstClick: false,
       dummyMenu: [],
-      clicked: false,
       filterForm: {
         category: "",
         rice: "",
@@ -70,26 +76,15 @@ export default {
       console.log("clicked!!!")
       this.filterOpened = !this.filterOpened
     },
+    getFirstPlace() {
+      console.log("clicked")
+      this.isFirstClick = true
+      this.getMenu()
+    },
   },
   computed: {},
   async mounted() {},
 }
 </script>
 
-<style scoped>
-.home {
-  height: 100%;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.today__menu {
-  margin: 2rem 0;
-  color: black;
-}
-
-.menuBtn:hover .today__menu {
-  color: red;
-}
-</style>
+<style scoped></style>
