@@ -8,7 +8,7 @@
       <button class="randomPlace" @click.prevent="getFirstPlace">Click!</button>
     </div>
     <div class="home__wrapper" v-if="isFirstClick">
-      <div>
+      <div class="place">
         <p>{{ menu }}</p>
       </div>
       <div>
@@ -60,7 +60,7 @@ export default {
       const res = await axios.get("http://localhost:3000/menus", {
         params: this.filterForm,
       })
-      this.$store.commit("setMenus", res.data)
+      this.$store.commit("menuStore/setMenus", res.data)
       const randomNum = Math.floor(
         Math.random() * this.$store.state.dummyMenu.length
       )

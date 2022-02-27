@@ -8,6 +8,9 @@
 *::after {
   box-sizing: border-box;
 }
+button {
+  cursor: pointer;
+}
 html,
 body,
 #__next,

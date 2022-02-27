@@ -1,6 +1,12 @@
 @mixin header {
   margin: 1rem;
 }
+@mixin place {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+$col-primary: #1aab8a;
 
 $font-size1: 36px;
 $font-size2: 24px;
@@ -15,7 +21,7 @@ $font-medium: 500;
 $font-bold: 700;
 
 /* color */
-$col-primary: #006ce6;
+// $col-primary: #006ce6;
 
 $col-light-color: #1a8cfc;
 $col-secondary: #ee2737;

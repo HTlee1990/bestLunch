@@ -1,10 +1,11 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "axios"
-
+import userStore from "./userStore"
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const menuStore = {
+  namespaced: true,
   state: { dummyMenu: [], filterForm: {} },
   mutations: {
     setMenus(state, menu) {
@@ -24,4 +25,13 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {},
+}
+
+const store = new Vuex.Store({
+  modules: {
+    menuStore,
+    userStore,
+  },
 })
+
+export default store
