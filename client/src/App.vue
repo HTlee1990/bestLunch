@@ -8,19 +8,21 @@
 
 <script>
 import "./App.scss"
+import { mapGetters } from "vuex"
 import Sidebar from "./components/Sidebar.vue"
 import Login from "./components/Login.vue"
 
 export default {
   components: { Sidebar, Login },
   data() {
-    return {
-      isModalOpen: true,
-    }
+    return {}
+  },
+  computed: {
+    ...mapGetters("userStore", { isModalOpen: "GE_MODALOPEN" }),
   },
   methods: {
     closeModal() {
-      this.isModalOpen = false
+      this.$store.commit("userStore/cloaseModal")
     },
   },
 }

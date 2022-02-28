@@ -17,6 +17,7 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.10.7",
     "file-loader": "^6.2.0",
+    "js-cookie": "^3.0.1",
     "node-sass": "^4.14.1",
     "sass-loader": "^10.2.0",
     "scss": "^0.2.4",
