@@ -6,11 +6,13 @@ import { MenusModule } from './menus/menus.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Lunch } from './entities/lunchLists.entity';
 import { User } from './entities/mcUser.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     MenusModule,
     TypeOrmModule.forRoot({
+      // DB연결을 위해 아래 코드 필요 없음. ormconfig.js 파일로 대체.
       // type: 'mysql',
       // //docker 용 host
       // host: "localhost",
@@ -28,6 +30,7 @@ import { User } from './entities/mcUser.entity';
       //   migrationsDir: 'migration',
       // },
     }),
+    AuthModule,
   ],
   controllers: [AppController, MenusController],
   providers: [AppService],
