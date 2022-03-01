@@ -5,8 +5,9 @@ import { MenusController } from './menus/menus.controller';
 import { MenusModule } from './menus/menus.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Lunch } from './entities/lunchLists.entity';
-import { User } from './entities/mcUser.entity';
+import { User } from './entities/User.entity';
 import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     AuthModule,
   ],
-  controllers: [AppController, MenusController],
+  controllers: [AppController, MenusController, AuthController],
   providers: [AppService],
 })
 export class AppModule {}

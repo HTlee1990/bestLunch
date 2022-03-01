@@ -20,13 +20,14 @@
           <label for="cpw">password confirm</label>
           <input id="cpw" type="text" v-model="form__data.cPassword" />
         </div>
-        <button @click.prevent="loginHandler">Sign in</button>
+        <button @click.prevent="signInHandler">Sign in</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import { signInApi } from "@/api/api.js"
 export default {
   data() {
     return {
@@ -39,8 +40,8 @@ export default {
     }
   },
   methods: {
-    loginHandler() {
-      console.log(this.form__data)
+    signInHandler() {
+      signInApi(this.form__data)
     },
     closeModal() {
       this.$emit("closeModal")
