@@ -9,7 +9,7 @@ export class AuthService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async signInHandler(body) {
+  async signInHandler(body: User) {
     try {
       const existingUser = await this.userRepository.findOne({ id: body.id });
       if (existingUser) {
@@ -21,9 +21,9 @@ export class AuthService {
           400,
         );
       }
-      const { ...otherInfo } = await this.userRepository.create(body);
-      console.log('otherInfo', otherInfo);
-      return;
+      await this.userRepository.insert(body);
+
+      return body;
     } catch (error) {
       throw new HttpException(
         {

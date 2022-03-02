@@ -9,6 +9,6 @@ export class AuthController {
 
   @Post('signIn')
   signIn(@Req() req, @Res({ passthrough: true }) res: Response) {
-    this.AuthService.signInHandler(req.body);
+    return this.AuthService.signInHandler(req.body);
   }
 }

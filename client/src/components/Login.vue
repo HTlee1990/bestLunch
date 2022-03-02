@@ -40,8 +40,14 @@ export default {
     }
   },
   methods: {
-    signInHandler() {
-      signInApi(this.form__data)
+    async signInHandler() {
+      try {
+        await signInApi(this.form__data)
+      } catch (error) {
+        // console.log("error is - ", error.response)
+        // alert(error.response.data.message)
+        throw new Error(error.response.data.message)
+      }
     },
     closeModal() {
       this.$emit("closeModal")
