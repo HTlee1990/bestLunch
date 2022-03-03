@@ -2,6 +2,7 @@
   <div class="modal__wrapper" @click.self="closeModal">
     <div class="form__wrapper">
       <div class="header"><h3>Sign In</h3></div>
+      <div class="header"><h3>Login In</h3></div>
       <form class="input__wrapper" action="">
         <div class="label__wrapper">
           <label for="id">id</label>
@@ -31,6 +32,7 @@ import { signInApi } from "@/api/api.js"
 export default {
   data() {
     return {
+      isLogin: false,
       form__data: {
         id: "",
         email: "",
