@@ -8,6 +8,7 @@ import { Lunch } from './entities/lunchLists.entity';
 import { User } from './entities/User.entity';
 import { AuthModule } from './auth/auth.module';
 import { AuthController } from './auth/auth.controller';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { AuthController } from './auth/auth.controller';
       // },
     }),
     AuthModule,
+    UsersModule,
   ],
   controllers: [AppController, MenusController, AuthController],
   providers: [AppService],

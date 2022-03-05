@@ -20,55 +20,59 @@
       <form class="input__wrapper" action="" v-if="!isLoginTab">
         <div class="label__wrapper">
           <label for="id">id</label>
-          <input id="id" type="text" v-model="form__data.id" />
+          <input id="id" type="text" v-model="signInFormData.id" />
         </div>
 
         <div class="label__wrapper">
           <label for="email">email</label>
-          <input id="email" type="text" v-model="form__data.email" />
+          <input id="email" type="text" v-model="signInFormData.email" />
         </div>
         <div class="label__wrapper">
           <label for="pw">password</label>
-          <input id="pw" type="text" v-model="form__data.password" />
+          <input id="pw" type="text" v-model="signInFormData.password" />
         </div>
         <div class="label__wrapper">
           <label for="cpw">password confirm</label>
-          <input id="cpw" type="text" v-model="form__data.cPassword" />
+          <input id="cpw" type="text" v-model="signInFormData.cPassword" />
         </div>
-        <button @click.prevent="signInHandler">Sign in</button>
+        <Custombutton @click.native.prevent="signInHandler"
+          >Sign in</Custombutton
+        >
       </form>
       <form class="input__wrapper" action="" v-if="isLoginTab">
         <div class="label__wrapper">
           <label for="id">id</label>
-          <input id="id" type="text" v-model="form__data.id" />
+          <input id="id" type="text" v-model="LoginFormData.id" />
         </div>
 
-        <div class="label__wrapper">
-          <label for="email">email</label>
-          <input id="email" type="text" v-model="form__data.email" />
-        </div>
         <div class="label__wrapper">
           <label for="pw">password</label>
-          <input id="pw" type="text" v-model="form__data.password" />
+          <input id="pw" type="text" v-model="LoginFormData.password" />
         </div>
 
-        <button @click.prevent="signInHandler">Login</button>
+        <Custombutton @click.native.prevent="loginHandler">Login</Custombutton>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import { signInApi } from "@/api/api.js"
+import { signinApi, loginApi } from "@/api/api.js"
+import Custombutton from "./CustomButton.vue"
 export default {
+  components: { Custombutton },
   data() {
     return {
-      isLoginTab: false,
-      form__data: {
+      isLoginTab: true,
+      signInFormData: {
         id: "",
         email: "",
         password: "",
         cPassword: "",
+      },
+      LoginFormData: {
+        id: "",
+        password: "",
       },
     }
   },
@@ -78,7 +82,16 @@ export default {
     },
     async signInHandler() {
       try {
-        await signInApi(this.form__data)
+        await signinApi(this.signInFormData)
+      } catch (error) {
+        // console.log("error is - ", error.response)
+        // alert(error.response.data.message)
+        throw new Error(error.response.data.message)
+      }
+    },
+    async loginHandler() {
+      try {
+        await loginApi(this.LoginFormData)
       } catch (error) {
         // console.log("error is - ", error.response)
         // alert(error.response.data.message)
@@ -159,7 +172,6 @@ export default {
     }
     button {
       margin: 1rem 0;
-      background: none;
       border: none;
       &:hover {
         color: #1aab8a;
