@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/User.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
+import { JwtService } from '@nestjs/jwt';
 
 const bcrypt = require('bcrypt');
 
@@ -10,17 +11,48 @@ const bcrypt = require('bcrypt');
 export class AuthService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    private jwtService: JwtService,
     private usersService: UsersService,
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
-    const matched = await bcrypt.compare(pass, user.password);
-    if (matched) {
+    try {
+      const user = await this.usersService.findOne(username);
+      await this.validatePassword(pass, user.password);
       const { password, ...result } = user;
       return result;
+    } catch (error) {
+      throw new HttpException(
+        '로그인정보를 확인해주세요.',
+        HttpStatus.BAD_REQUEST,
+      );
     }
-    return null;
+  }
+
+  private async validatePassword(plainPassword: string, hashed: string) {
+    const matched = await bcrypt.compare(plainPassword, hashed);
+    console.log('matched ???', matched);
+    if (!matched) {
+      throw new HttpException(
+        '비밀번호를 확인해주세요.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async loginHandler(user) {
+    try {
+      const token = this.jwtService.sign(user);
+
+      return {
+        accessToken: token,
+        path: '/',
+        sameSite: false,
+        maxAge: 1000 * 1000,
+      };
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async signinHandler(body: User) {
@@ -48,15 +80,5 @@ export class AuthService {
         400,
       );
     }
-  }
-
-  async loginHandler(body) {
-    try {
-      console.log('loginHandler');
-      const res = await this.userRepository.findOne({ id: body.id });
-      const matched = await bcrypt.compare(body.password, res.password);
-      if (matched) {
-      }
-    } catch (error) {}
   }
 }
