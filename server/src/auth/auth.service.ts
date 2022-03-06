@@ -4,6 +4,7 @@ import { User } from '../entities/User.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 const bcrypt = require('bcrypt');
 
@@ -11,6 +12,7 @@ const bcrypt = require('bcrypt');
 export class AuthService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    private configService: ConfigService,
     private jwtService: JwtService,
     private usersService: UsersService,
   ) {}
@@ -40,15 +42,32 @@ export class AuthService {
     }
   }
 
-  async loginHandler(user) {
+  async getAccessToken(user) {
     try {
       const token = this.jwtService.sign(user);
+      const expire_date = this.configService.get('ACCESS_TOKEN_EXPIRES');
 
       return {
         accessToken: token,
         path: '/',
         sameSite: false,
-        maxAge: 1000 * 1000,
+        maxAge: expire_date * 1000,
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getRefreshToken(user) {
+    try {
+      const token = this.jwtService.sign(user);
+      const expire_date = this.configService.get('REFRESH_TOKEN_EXPIRES');
+
+      return {
+        refreshToken: token,
+        path: '/',
+        sameSite: false,
+        maxAge: expire_date * 1000,
       };
     } catch (error) {
       console.log(error);

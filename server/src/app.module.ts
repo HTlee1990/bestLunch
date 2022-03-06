@@ -4,14 +4,24 @@ import { AppService } from './app.service';
 import { MenusController } from './menus/menus.controller';
 import { MenusModule } from './menus/menus.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Lunch } from './entities/lunchLists.entity';
-import { User } from './entities/User.entity';
 import { AuthModule } from './auth/auth.module';
 import { AuthController } from './auth/auth.controller';
 import { UsersModule } from './users/users.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath:
+        process.env.NODE_ENV === 'prod'
+          ? '.env.prod'
+          : process.env.NODE_ENV === 'dev'
+          ? '.env.dev'
+          : '.env',
+    }),
     MenusModule,
     TypeOrmModule.forRoot({
       // DB연결을 위해 아래 코드 필요 없음. ormconfig.js 파일로 대체.
@@ -36,6 +46,6 @@ import { UsersModule } from './users/users.module';
     UsersModule,
   ],
   controllers: [AppController, MenusController, AuthController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule {}
