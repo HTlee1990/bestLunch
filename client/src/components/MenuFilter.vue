@@ -57,14 +57,14 @@ export default {
   data() {
     return {
       isActive: { btn1: false, btn2: false, btn3: false },
-    }
+    };
   },
   methods: {
     clickBtn(num) {
-      this.isActive[`btn${num}`] = !this.isActive[`btn${num}`]
+      this.isActive[`btn${num}`] = !this.isActive[`btn${num}`];
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,29 +1,30 @@
 <template>
   <div id="app">
-    <Login v-if="isModalOpen" @closeModal="closeModal" />
+    <login-modal v-if="isModalOpen" @closeModal="closeModal" ref="loginModal" />
     <router-view />
     <Sidebar />
   </div>
 </template>
 
 <script>
-import "./App.scss"
-import { mapGetters } from "vuex"
-import Sidebar from "./components/Sidebar.vue"
-import Login from "./components/Login.vue"
+import "./App.scss";
+import { mapGetters } from "vuex";
+import Sidebar from "./components/Sidebar.vue";
+import loginModal from "./components/Login.vue";
 
 export default {
-  components: { Sidebar, Login },
+  components: { Sidebar, loginModal },
   data() {
-    return {}
+    return {};
   },
   computed: {
     ...mapGetters("userStore", { isModalOpen: "GE_MODALOPEN" }),
   },
   methods: {
     closeModal() {
-      this.$store.commit("userStore/cloaseModal")
+      // this.$store.commit("userStore/cloaseModal");
+      this.$store.dispatch("userStore/AC_CHANGE_PW");
     },
   },
-}
+};
 </script>

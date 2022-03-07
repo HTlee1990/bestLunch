@@ -57,12 +57,13 @@
 </template>
 
 <script>
-import { signinApi, loginApi } from "@/api/api.js"
-import Custombutton from "./CustomButton.vue"
+import { signinApi, loginApi } from "@/api/api.js";
+import Custombutton from "./CustomButton.vue";
 export default {
   components: { Custombutton },
   data() {
     return {
+      dest: "",
       isLoginTab: true,
       signInFormData: {
         id: "",
@@ -74,35 +75,47 @@ export default {
         id: "",
         password: "",
       },
-    }
+    };
   },
   methods: {
+    openModal(des) {
+      console.log(des);
+      this.dest = des;
+      console.log(this.dest);
+    },
     handleTab(tab) {
-      this.isLoginTab = tab
+      this.isLoginTab = tab;
     },
     async signInHandler() {
       try {
-        await signinApi(this.signInFormData)
+        const { id, email, password } = this.signInFormData;
+        const res = await signinApi({ id, email, password });
+        console.log("res is - ", res);
+        this.closeModal();
       } catch (error) {
         // console.log("error is - ", error.response)
         // alert(error.response.data.message)
-        throw new Error(error.response.data.message)
+        throw new Error(error.response.data.message);
       }
     },
     async loginHandler() {
       try {
-        await loginApi(this.LoginFormData)
+        const res = await loginApi(this.LoginFormData);
+        console.log("res is - ", res);
+        this.closeModal();
+        console.log("res is - ", this.destination);
+        // this.$router.push(this.destination)
       } catch (error) {
         // console.log("error is - ", error.response)
         // alert(error.response.data.message)
-        throw new Error(error.response.data.message)
+        throw new Error(error.response.data.message);
       }
     },
     closeModal() {
-      this.$emit("closeModal")
+      this.$emit("closeModal");
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
