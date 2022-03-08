@@ -28,8 +28,11 @@ export default {
         state.rejectPromise = reject;
       });
     },
-    AC_CHANGE_PW({ state }) {
-      state.resolvePromise();
+    AC_CHANGE_PW({ state }, payload) {
+      if (payload) {
+        state.resolvePromise();
+      } else state.rejectPromise();
+
       state.modalOpen = false;
     },
   },

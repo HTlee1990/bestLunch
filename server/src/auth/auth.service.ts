@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-
 const bcrypt = require('bcrypt');
 
 @Injectable()

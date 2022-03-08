@@ -42,8 +42,10 @@ router.beforeEach(async (to, from, next) => {
   console.log("Login components - ", Login);
   if (!whiteLists.includes(`${to.path}`)) {
     if (!isLogin) {
-      await store.dispatch("userStore/AC_OPEN_MODAL", to.path);
-      next();
+      const res = await store.dispatch("userStore/AC_OPEN_MODAL", to.path);
+      if (res) {
+        next();
+      }
     } else next();
   } else {
     next();
