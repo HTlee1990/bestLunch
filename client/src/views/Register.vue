@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import CustomButton from "@/components/CustomButton.vue"
+import CustomButton from "@/components/CustomButton.vue";
 export default {
   components: { CustomButton },
   data() {
@@ -59,11 +59,11 @@ export default {
         isNoodle: "밥",
         distance: "상",
       },
-    }
+    };
   },
   methods: {
     submitform() {
-      this.$store.commit("addMenu", this.menuForm)
+      this.$store.commit("addMenu", this.menuForm);
     },
   },
   computed: {},
@@ -71,7 +71,7 @@ export default {
     // console.log("router", this.$router)
     // console.log("route", this.$route)
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +84,7 @@ export default {
 .about {
   display: flex;
   flex-direction: column;
+  margin-top: 3rem;
 }
 .form__container {
   display: flex;

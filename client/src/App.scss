@@ -18,9 +18,11 @@ body,
   height: 100%;
 }
 body {
-  line-height: 1.5;
+  // line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   font-family: "Noto Sans KR", sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 img,
 picture,
@@ -45,7 +47,8 @@ a {
   border: 0 none;
 }
 #app {
-  height: 100%;
+  height: 100vh;
+  position: relative;
   // -webkit-font-smoothing: antialiased;
   // -moz-osx-font-smoothing: grayscale;
   //   text-align: center;
