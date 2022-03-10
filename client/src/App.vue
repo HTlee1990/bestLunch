@@ -23,9 +23,8 @@ export default {
     ...mapGetters("userStore", { isModalOpen: "GE_MODALOPEN" }),
   },
   methods: {
-    closeModal() {
-      // this.$store.commit("userStore/cloaseModal");
-      this.$store.dispatch("userStore/AC_CHANGE_PW");
+    closeModal(result) {
+      this.$store.dispatch("userStore/AC_FINISH_LOGIN", result);
     },
   },
 };

@@ -11,7 +11,7 @@
       <!-- <div class="profile__header"><h3>My YL</h3></div> -->
       <div class="name">
         <span>userName</span>
-        <h6>좋아요갯수</h6>
+        <h6>누적좋아요갯수</h6>
       </div>
       <div class="info">
         <h6 class="pens">
@@ -42,20 +42,6 @@
           <div class="bar bar-chinese"><p>70%</p></div>
         </div>
       </div>
-      <!-- <div class="info__wrapper">
-        <div class="input__wrapper">
-          <span>user</span>
-          <input type="text" />
-        </div>
-        <div class="input__wrapper">
-          <span>email</span>
-          <input type="text" />
-        </div>
-        <div class="input__wrapper">
-          <span>otherInfo</span>
-          <input type="text" />
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -70,7 +56,8 @@ export default {
 @import "@/style/common";
 
 .profile__wrapper {
-  /* position: relative; */
+  position: absolute;
+  top: -1rem;
   display: flex;
   height: 100%;
   width: 100%;

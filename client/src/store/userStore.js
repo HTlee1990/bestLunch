@@ -21,19 +21,27 @@ export default {
   },
   actions: {
     AC_OPEN_MODAL({ state }, payload) {
+      //Login 모달창 열기
       state.modalOpen = true;
+      //원래 가려고 했던 path 저장
       state.destination = payload;
+      //로그인이 완료 될 때 까지 우선 pending상태 유지
       return new Promise((resolve, reject) => {
         state.resolvePromise = resolve;
         state.rejectPromise = reject;
       });
     },
-    AC_CHANGE_PW({ state }, payload) {
-      if (payload) {
-        state.resolvePromise();
-      } else state.rejectPromise();
 
-      state.modalOpen = false;
+    AC_FINISH_LOGIN({ state }, payload) {
+      //모달창 바깥쪽을 클릭했다면, 바로 모달창 종료 후, 리턴
+      if (payload === undefined) {
+        state.modalOpen = false;
+        return;
+      }
+      //로그인 완료 됐다면, Promise를 fullfilled 로 만들어주기
+      state.resolvePromise(payload);
+      state.rejectPromise(!payload);
+      state.modalOpen = !payload;
     },
   },
 };

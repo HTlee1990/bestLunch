@@ -1,5 +1,5 @@
 <template>
-  <div class="modal__wrapper" @click.self="closeModal">
+  <div class="modal__wrapper" @click.self="closeModalSelf">
     <div class="form__wrapper">
       <div class="header__wrapper">
         <div
@@ -90,8 +90,11 @@ export default {
       try {
         const { id, email, password } = this.signInFormData;
         const res = await signinApi({ id, email, password });
-        console.log("res is - ", res);
-        this.closeModal();
+        if (res) {
+          this.closeModal(true);
+        } else {
+          this.closeModal(false);
+        }
       } catch (error) {
         // console.log("error is - ", error.response)
         // alert(error.response.data.message)
@@ -100,18 +103,21 @@ export default {
     },
     async loginHandler() {
       try {
+        //Login이 성공적으로 마쳐졌을 때 closeModal 실행
         const res = await loginApi(this.LoginFormData);
-        console.log("res is - ", res);
-        this.closeModal();
-        console.log("res is - ", this.destination);
-        // this.$router.push(this.destination)
+        if (res) this.closeModal(true);
       } catch (error) {
-        // console.log("error is - ", error.response)
-        // alert(error.response.data.message)
+        //그렇지 않다면 Error 출력
         throw new Error(error.response.data.message);
       }
     },
-    closeModal() {
+    closeModal(result) {
+      //app.vue에 있는 closeModal 메소드 실행
+      this.$emit("closeModal", result);
+    },
+    // 모달창 바깥쪽 클릭 시, result값 없이 바로 closeModal 실행
+    closeModalSelf() {
+      //app.vue에 있는 closeModal 메소드 실행
       this.$emit("closeModal");
     },
   },
