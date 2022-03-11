@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
 import Cookies from "js-cookie";
-import Login from "../components/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -38,9 +37,27 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   const whiteLists = ["/home", "/"];
   //if it is not in the whiteLists, need to Login
+
+  await store.dispatch("userStore/AC_GET_AT_WITH_RT");
+  if (whiteLists.includes(`${to.path}`)) {
+    next();
+  }
   const isLogin = Cookies.get("logined");
-  console.log("Login components - ", Login);
-  if (!whiteLists.includes(`${to.path}`) && !isLogin) {
+  const AT = Cookies.get("Authentication");
+  const RT = Cookies.get("Refresh");
+  console.log(AT, RT);
+
+  //만약 AT, RT 모두 만료 됐다면, 홈페이지로 이동 후, 로그인 필요 with logined 쿠키 삭제
+  if (!AT && !RT) {
+    Cookies.remove("logined");
+    next({ path: "/" });
+  }
+  //만약, AT만 만료 됐다면, RT를 이용해 재발급
+  else if (!AT) {
+    await store.dispatch("userStore/AC_GET_AT_WITH_RT");
+  }
+
+  if (!isLogin) {
     //로그인이 되어 있지 않다면, 모달 오픈
     const res = await store.dispatch("userStore/AC_OPEN_MODAL", to.path);
 

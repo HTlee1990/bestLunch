@@ -7,6 +7,7 @@ import { User } from '../entities/User.entity';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from '../strategies/local.strategy';
 import { JwtStrategy } from '../strategies/jwt.strategy';
+import { RefreshStrategy } from '../strategies/refresh.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constant';
 
@@ -20,7 +21,7 @@ import { jwtConstants } from './constant';
     }),
     TypeOrmModule.forFeature([User]),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, RefreshStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })

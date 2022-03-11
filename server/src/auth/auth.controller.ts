@@ -10,6 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { LocalAuthGuard } from './local-auth.guard';
+import { RefreshAuthGuard } from './jwt-refresh.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { Public } from 'src/strategies/skip-auth';
 
@@ -25,9 +26,11 @@ export class AuthController {
   }
 
   @Public()
+  // @UseGuards(JwtAuthGuard)
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
+    console.log('login', req.headers, req.cookise);
     const { accessToken, ...options } = await this.AuthService.getAccessToken(
       req.user,
     );
@@ -41,5 +44,11 @@ export class AuthController {
       message: '로그인 성공',
       data: 'logined',
     };
+  }
+
+  @Public()
+  @Get('access_token')
+  async getAT(@Req() req) {
+    console.log('access_token', req.headers);
   }
 }

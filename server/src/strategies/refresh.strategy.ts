@@ -4,15 +4,16 @@ import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../auth/constant';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
   constructor() {
     super({
       //extract jwt from the reqest.
       //jwt must be not expired, if it is, the request will be denied with 401 Unauthorized
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request) => {
-          console.log('jwt STrategyasdfasdf', request.cookies);
-          return request.cookies.Authentication;
+          console.log('test');
+          console.log(request.cookies);
+          return request.cookies.Refresh;
         },
       ]),
       ignoreExpiration: false,
@@ -23,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   //payload is the decoded JWT
   async validate(payload: any) {
-    console.log('jwt Strategy - ', payload);
+    console.log('refresh Strategy - ', payload);
     return payload;
     // return { userId: payload.sub, username: payload.username };
   }

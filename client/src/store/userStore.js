@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default {
   namespaced: true,
   state: () => ({
@@ -42,6 +44,11 @@ export default {
       state.resolvePromise(payload);
       state.rejectPromise(!payload);
       state.modalOpen = !payload;
+    },
+
+    async AC_GET_AT_WITH_RT() {
+      const res = await axios.get("http://localhost:3000/auth/access_token");
+      console.log(res);
     },
   },
 };
