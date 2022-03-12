@@ -11,9 +11,7 @@ export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
       //jwt must be not expired, if it is, the request will be denied with 401 Unauthorized
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request) => {
-          console.log('test');
-          console.log(request.cookies);
-          return request.cookies.Refresh;
+          return request?.cookies?.Refresh;
         },
       ]),
       ignoreExpiration: false,
@@ -24,7 +22,6 @@ export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
 
   //payload is the decoded JWT
   async validate(payload: any) {
-    console.log('refresh Strategy - ', payload);
     return payload;
     // return { userId: payload.sub, username: payload.username };
   }

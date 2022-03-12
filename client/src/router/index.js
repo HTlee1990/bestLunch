@@ -34,30 +34,29 @@ const router = new VueRouter({
   routes,
 });
 
+//router 안의 로직 구현
 router.beforeEach(async (to, from, next) => {
   const whiteLists = ["/home", "/"];
-  //if it is not in the whiteLists, need to Login
 
-  await store.dispatch("userStore/AC_GET_AT_WITH_RT");
+  //쿠키 및 로그인 여부
+  // const isLogin = Cookies.get("logined");
+  const AT = Cookies.get("Authentication");
+  const RT = Cookies.get("Refresh");
+  console.log("AT && RT ???", AT, RT);
+  //화이트 리스트에 있는 곳으로 간다면, 로그인 유무 체크 불필요
   if (whiteLists.includes(`${to.path}`)) {
     next();
   }
-  const isLogin = Cookies.get("logined");
-  const AT = Cookies.get("Authentication");
-  const RT = Cookies.get("Refresh");
-  console.log(AT, RT);
-
-  //만약 AT, RT 모두 만료 됐다면, 홈페이지로 이동 후, 로그인 필요 with logined 쿠키 삭제
-  if (!AT && !RT) {
-    Cookies.remove("logined");
-    next({ path: "/" });
-  }
-  //만약, AT만 만료 됐다면, RT를 이용해 재발급
-  else if (!AT) {
+  //만약, AT만 만료 됐다면, RT를 이용해 재발급 이후, 원래 목적지로 이동.
+  else if (!AT && RT) {
+    console.log("!AT && RT");
     await store.dispatch("userStore/AC_GET_AT_WITH_RT");
+    next();
   }
 
-  if (!isLogin) {
+  //AT RT모두 만료 됐다면, 재 로그인이 필요 && logined 쿠키 삭제
+  else if (!AT && !RT) {
+    Cookies.remove("logined");
     //로그인이 되어 있지 않다면, 모달 오픈
     const res = await store.dispatch("userStore/AC_OPEN_MODAL", to.path);
 

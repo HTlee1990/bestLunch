@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import { getATbyRT } from "../api/api";
 
 export default {
   namespaced: true,
@@ -47,8 +48,10 @@ export default {
     },
 
     async AC_GET_AT_WITH_RT() {
-      const res = await axios.get("http://localhost:3000/auth/access_token");
-      console.log(res);
+      console.log("AC_GET_AT_WITH_RT is workgins");
+      getATbyRT();
+      // const res = await axios.get("http://localhost:3000/auth/access_token");
+      // console.log(res);
     },
   },
 };

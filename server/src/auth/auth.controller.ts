@@ -26,11 +26,10 @@ export class AuthController {
   }
 
   @Public()
-  // @UseGuards(JwtAuthGuard)
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
-    console.log('login', req.headers, req.cookise);
+    console.log('login', req.user);
     const { accessToken, ...options } = await this.AuthService.getAccessToken(
       req.user,
     );
@@ -47,8 +46,15 @@ export class AuthController {
   }
 
   @Public()
+  @UseGuards(RefreshAuthGuard)
   @Get('access_token')
-  async getAT(@Req() req) {
-    console.log('access_token', req.headers);
+  async getAT(@Req() req, @Res({ passthrough: true }) res: Response) {
+    const user = { idx: req.user.idx, id: req.user.id, email: req.user.email };
+    const { accessToken, ...AToptions } = await this.AuthService.getAccessToken(
+      user,
+    );
+
+    res.cookie('logined', true);
+    res.cookie('Authentication', accessToken, AToptions);
   }
 }
