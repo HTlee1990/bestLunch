@@ -11,7 +11,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       //jwt must be not expired, if it is, the request will be denied with 401 Unauthorized
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request) => {
-          console.log('jwt STrategyasdfasdf', request.cookies);
           return request.cookies.Authentication;
         },
       ]),

@@ -105,6 +105,8 @@ export default {
       try {
         //Login이 성공적으로 마쳐졌을 때 closeModal 실행
         const res = await loginApi(this.LoginFormData);
+        //userInfo 받아 와서 저장하기
+        // await this.$store.dispatch("userStore/AC_GET_USER_INFO", res.data.user);
         if (res) this.closeModal(true);
       } catch (error) {
         //그렇지 않다면 Error 출력

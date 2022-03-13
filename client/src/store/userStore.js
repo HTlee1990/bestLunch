@@ -1,5 +1,5 @@
 // import axios from "axios";
-import { getATbyRT } from "../api/api";
+import { getATbyRT, getUserInfo } from "../api/api";
 
 export default {
   namespaced: true,
@@ -8,6 +8,7 @@ export default {
     destination: "/",
     resolvePromise: undefined,
     rejectPromise: undefined,
+    currentUser: {},
   }),
   mutations: {
     openModal(state, item) {
@@ -21,6 +22,7 @@ export default {
   },
   getters: {
     GE_MODALOPEN: (state) => state.modalOpen,
+    GE_CURRENTUSER: (state) => state.currentUser,
   },
   actions: {
     AC_OPEN_MODAL({ state }, payload) {
@@ -48,10 +50,13 @@ export default {
     },
 
     async AC_GET_AT_WITH_RT() {
-      console.log("AC_GET_AT_WITH_RT is workgins");
-      getATbyRT();
-      // const res = await axios.get("http://localhost:3000/auth/access_token");
-      // console.log(res);
+      await getATbyRT();
+    },
+
+    async AC_GET_USER_INFO({ state }) {
+      const res = await getUserInfo();
+      const { iat, exp, ...userInfo } = res.data;
+      state.currentUser = userInfo;
     },
   },
 };

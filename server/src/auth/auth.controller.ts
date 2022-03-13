@@ -29,7 +29,6 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Req() req, @Res({ passthrough: true }) res: Response) {
-    console.log('login', req.user);
     const { accessToken, ...options } = await this.AuthService.getAccessToken(
       req.user,
     );
@@ -41,7 +40,7 @@ export class AuthController {
     return {
       code: 200,
       message: '로그인 성공',
-      data: 'logined',
+      user: req.user,
     };
   }
 

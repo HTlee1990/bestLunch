@@ -1,12 +1,14 @@
 import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { MenusService } from './menus.service';
 import { Lunch } from '../entities/lunchLists.entity';
+import { Public } from 'src/strategies/skip-auth';
 import * as dayjs from 'dayjs';
 
 @Controller('menus')
 export class MenusController {
   constructor(private readonly MenusService: MenusService) {}
 
+  @Public()
   @Get()
   saySth(@Req() req, @Res({ passthrough: true }) res): Promise<Lunch[]> {
     let { category, rice, distance } = req.query;
@@ -33,6 +35,7 @@ export class MenusController {
     return this.MenusService.addMenu(menu);
   }
 
+  @Public()
   @Post('go')
   updateLastVisit(@Body() body: any) {
     const { place } = body;

@@ -18,3 +18,10 @@ export function getATbyRT() {
     withCredentials: true,
   });
 }
+
+export function getUserInfo() {
+  return axios.get("http://localhost:3000/users/getInfo", {
+    credentials: "include",
+    withCredentials: true,
+  });
+}

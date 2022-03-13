@@ -10,7 +10,7 @@
       </div>
       <!-- <div class="profile__header"><h3>My YL</h3></div> -->
       <div class="name">
-        <span>userName</span>
+        <span>{{ currentUser.id }}</span>
         <h6>누적좋아요갯수</h6>
       </div>
       <div class="info">
@@ -47,8 +47,23 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "profile",
+  data() {
+    console.log(this.userInfo);
+    return {
+      userInfo: {},
+    };
+  },
+
+  computed: {
+    ...mapGetters("userStore", { currentUser: "GE_CURRENTUSER" }),
+  },
+  created() {
+    this.userInfo = this.currentUser;
+  },
 };
 </script>
 
@@ -57,7 +72,7 @@ export default {
 
 .profile__wrapper {
   position: absolute;
-  top: -1rem;
+  top: -3rem;
   display: flex;
   height: 100%;
   width: 100%;
@@ -184,7 +199,7 @@ export default {
         flex-direction: column;
         h6 {
           font-weight: 400;
-          font-size: 8px;
+          font-size: 12px;
           letter-spacing: 0.05em;
           margin: 4px 0;
         }
@@ -196,7 +211,7 @@ export default {
           p {
             text-align: right;
             color: grey;
-            font-size: 8px;
+            font-size: 12px;
             padding-top: 5px;
             animation: fadeIn 5s;
           }
