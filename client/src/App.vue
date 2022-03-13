@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header />
     <login-modal v-if="isModalOpen" @closeModal="closeModal" ref="loginModal" />
+    <Header />
     <router-view />
     <Sidebar />
   </div>

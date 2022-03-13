@@ -10,10 +10,8 @@ export default {};
 
 <style lang="scss" scoped>
 .header {
-  /* background: red; */
   padding: 1rem;
   position: fixed;
-  /* height: 100px; */
   width: 100%;
   top: 0;
   left: 0;
